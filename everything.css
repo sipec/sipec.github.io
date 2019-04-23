@@ -38,11 +38,21 @@ p
   border-radius: 8px;
   max-height: 0;
   overflow:hidden;
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.4s ease-out;
   background-color: #ccaae2;
   width: 684px; /* 720 - 18 - 18 = 684 [TODO: fix the jank] */
 }
 
 .revealedcontent > p {
   width: 100%;
+}
+
+.linkbox {
+  position: relative;
+  right: 0;
+  background-color: #d7bff1;
+  padding: 18px;
+  border: 2px solid white;
+  border-radius: 8px;
+  width: 150px;
 }
