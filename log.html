@@ -5,19 +5,48 @@
 <body>
 	<a href="index.html">Home</a> <a href="project.html">Back to notebook</a>
 	<h1>Weekly Log</h1>
+	<p>Click on any week to see what I did that week!</p>
 	<br>
-	<div class="week">
-	<h1>Week 1</h1>
+	<button class="collapsible">Week 2</button>
+	<div class="revealedcontent">
 	<h3>9 Apr</h3>
-	<p>Met with Lindsey. Discussed timeline and project expectations. Decided focus was on improving performance over making new features. Worked out how we were going to gather data and user-test this app. <a href="project req 4-9">Notes</a></p> 
+	<p>The full team met with Lindsey. We discussed timeline and project expectations, decided focus was on improving performance over making new features. Design team worked out how we were going to gather data and user-test this app. <a href="project req 4-9">Notes</a></p> 
 	<h3>13 Apr</h3>
-	<p>Signed team contract</p>
+	<p>Signed <a href="Contract.pdf">team contract</a></p>
 	</div>
 
-	<div class="week">
-	<h1>Week 2</h1>
+	<button class="collapsible">Week 3</button>
+	<div class="revealedcontent">
 	<h3>15 Apr</h3>
-	<p>Met with Nate and frontend team. Discussed project timelines, his team's role in the project.</p>
+	<p>Me and the design team met with Nate. The meeting was orignally just between Nate and the design team, but Elissa invited me last minute so that I could communicate back to the tech team what was discussed. We talked about project timelines and Nate's role in the project. Apparently Nate's own team at the Center for Sustainability has been designing this app for quite a while. I asked Nate for the github link; he's surprised we haven't gotten it yet. After the meeting I find the <a href="https://github.com/jonnylin13/taste-the-waste">link to Jonny's repo</a> and share with the team. </p>
+	<h3>18 Apr</h3>
+	<p>I had arranged a meeting with Jonny (the lead programmer from last quarter) and was planning on showing up today, but I had a schedule conflict at the last minute. I think Aastha was the only one who ended up talking to him in person.</p>
+	<h3>19 Apr</h3>
+	<p></p>
 	</div>
+
+
+	<button class="collapsible">Week 4</button>
+	<div class="revealedcontent">
+	<h3>22 Apr</h3>
+	<p>Worked on GANTT Chart and update</p>
+	</div>
+
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	    } 
+	  });
+	}
+</script>
 </body>
 </html>
