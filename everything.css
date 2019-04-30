@@ -3,6 +3,7 @@ body
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: #e8c7e2;
   padding:30px;
+  word-wrap: break-word;
 }
 
 a:hover
@@ -31,6 +32,7 @@ p
 
 .active, .collapsible:hover {
   background-color: #672693;
+  border: 2px solid black;
 }
 
 .revealedcontent {
@@ -48,11 +50,12 @@ p
 }
 
 .linkbox {
-  position: relative;
-  right: 0;
+  position: absolute;
+  right: 30px;
   background-color: #d7bff1;
-  padding: 18px;
+  padding-left: 18px;
+  padding-bottom: 18px;
   border: 2px solid white;
   border-radius: 8px;
-  width: 150px;
+  width: 170px;
 }
