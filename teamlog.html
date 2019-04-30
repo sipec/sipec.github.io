@@ -1,0 +1,59 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="everything.css"></link>
+</head>
+<body>
+	<a href="index.html">Home</a> <a href="project.html">Back to notebook</a>
+	<a href="log.html">Personal Log</a>
+	<h1>Weekly Team Log</h1>
+	<p>Click on any week to see what we did that week!</p>
+	<br>
+	<button class="collapsible">Week 2</button>
+	<div class="revealedcontent">
+	<h3>9 Apr</h3>
+	<p>The full team met with Lindsey. We discussed timeline and project expectations, decided focus was on improving performance over making new features. Design team worked out how we were going to gather data and user-test this app. <a href="project req 4-9">Notes</a></p> 
+	<h3>13 Apr</h3>
+	<p>We finalized the <a href="Contract.pdf">team contract</a></p>
+	</div>
+
+	<button class="collapsible">Week 3</button>
+	<div class="revealedcontent">
+	<h3>15 Apr</h3>
+	<p>Shared <a href="https://github.com/jonnylin13/taste-the-waste"> Jonny's repo</a> with the team. More details in <a href = "log.html">personal log</a>.</p>
+	<h3>18 Apr</h3>
+	<p>Aastha met with Jonny and shares the information with the team.</p>
+	</div>
+
+
+	<button class="collapsible">Week 4</button>
+	<div class="revealedcontent">
+	<h3>22 Apr</h3>
+	<p>We made the <a href="gantt_0.pdf">GANTT chart</a>. However, at the time we did not actually use this to do any planning, we just recorded what had been done so far.</p>
+	<h3>23 Apr</h3>
+	<p>Two people got trained. Me, Aastha, and I think Frencesca worked on the project. Aastha told me that she found the login information for the Center for Sustainability's gmail and github on Emily Zhang's weekly log from last quarter. (The login information has been removed, as far as I can tell)</p>
+	<p>After training finished, the five of us got together and each individually worked on getting the app to run on our own computers. The UI team asked us when the app would be done, and we didn't know. Aastha told them that we would update the GANTT chart in the shared drive after seeing the what the app looks like (but we never did.) After Jonny told us over facebook messenger the updated environment variables, I was able to get the user interface to display on my android emulator. However Jonny is surprised by this and thinks this means the build is off.</p>
+	</div>
+
+	<button class="collapsible">Week 5</button>
+	<div class="revealedcontent">
+		<p>Nothing yet, unfortunately</p>
+	</div>
+
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	    } 
+	  });
+	}
+</script>
+</body>
+</html>
