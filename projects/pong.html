@@ -1,0 +1,225 @@
+
+<html>
+<title>Pong</title>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+
+<div id="scoreBoard">0-0</div> <br>
+<div id>⬆W  ⬇S  ~  ⬆up  ⬇down  ~  (P)ause</div>
+<div id="leftPad"></div>
+<div id="rightPad"></div>
+<div id="ball"></div>
+
+<style>
+  body {
+    font-family:verdana;
+    font-size:200%;
+  }
+  #leftPad
+  {
+    height:100px;
+    width:6px;
+    background:green;
+    position:absolute;
+    left:30px;
+    top:50%;
+    border-radius:3px;
+  }
+  #rightPad
+  {
+    height:100px;
+    width:6px;
+    background:blue;
+    position:absolute;
+    right:30px;
+    top:50%;
+    border-radius:3px;
+  }
+  #ball
+  {
+    height:10px;
+    width:10px;
+    background:red;
+    position:absolute;
+    border-radius:50%;
+  }
+  #scoreBoard
+  {
+    
+    position:absolute;
+    right:50%;
+    top:10;
+  }
+</style>
+<script>
+( () => { //self invoke
+var leftScore=0; var rightScore=0;
+
+var x=$("body").width() / 2;
+var y=$("body").height() / 2;
+var xIncrement=1;
+var yIncrement=1;
+ballReset();
+
+var paused=false;
+
+// vars for paddlemovement
+var leftup = false;
+var leftdown = false;
+var rightup = false;
+var rightdown = false;
+
+function move()
+{
+  if (paused) {
+    return;
+  }
+
+  $("#ball").offset({left:x});
+  $("#ball").offset({top:y});
+  x += xIncrement;
+  y += yIncrement;
+  
+  //  paddle moves
+  var paddlespeed = 1.3;
+
+  if ( leftup && leftY() > 0 )
+  {
+    $("#leftPad").offset( {top:leftY() - paddlespeed} );
+  }
+  if ( leftdown && leftY() + $("#leftPad").height() < $("body").height() ) {
+    $("#leftPad").offset( {top:leftY() + paddlespeed} );
+  }
+  if ( rightup && rightY() > 0 ) {
+    $("#rightPad").offset( {top:rightY() - paddlespeed} );
+  }
+  if ( rightdown && rightY() + $("#rightPad").height() < $("body").height() ) {
+    $("#rightPad").offset( {top:rightY() + paddlespeed} );
+  }
+
+  //  ball moves
+
+  if( x < 0 )//left loses
+  {
+    rightScore++;
+    $("#scoreBoard").text(leftScore + "-" + rightScore);
+    ballReset();
+  }
+  else if ( x > $("body").width() )//right loses
+  {
+    leftScore++;
+    $("#scoreBoard").text(leftScore + "-" + rightScore);
+    ballReset();
+  }
+  var cushion = 5;
+  //ball bounce left
+  if ( 29 + $("#leftPad").width() <= x && x <= 30 + $("#leftPad").width()
+    && y > leftY() - cushion
+    && y < leftY() + $("#leftPad").height() + cushion)
+  {
+    xIncrement *= -1;
+  }
+  //ball bounce right
+  var padFace=$("body").width() - 30 ;
+  if ( padFace <= x && x <= padFace + 1
+    && y > rightY() - cushion
+    && y < rightY() + $("#rightPad").height() + cushion)
+  {
+    xIncrement *= -1;
+  }
+  //ball bounce top or bottom
+  if( y < 0 || y > $("body").height() - $("#ball").height() )
+  {
+    yIncrement *= -1;
+  }
+}
+
+function ballReset()
+{
+  x=$("body").width() /2;
+  y=$("body").height()/2;
+  xIncrement= Math.random()<0.5 ? -1 : 1;
+  yIncrement= Math.random()<0.5 ? -1 : 1;
+}
+
+function leftY()
+{
+  return $("#leftPad").position().top;
+}
+
+function rightY()
+{
+  return $("#rightPad").position().top;
+}
+
+setInterval( move, 1 );
+
+
+
+// down_handler triggers when key is pressed, up_handler when key is released
+function down_handler(event)
+{
+  if ( event.keyCode == 80 ) //'p'
+  {
+    paused=!paused;
+  }
+  
+  else if( paused )
+  {
+    //todo
+    return;
+  }
+  
+  switch( event.keyCode )
+  {
+    case 87: //'w'
+      leftup = true;
+      break;
+    case 83: //'s'
+      leftdown = true;
+      break;
+    case 38: //up arrow
+      rightup = true;
+      break;
+    case 40: //down arrow
+      rightdown = true;
+      break;
+  }
+  
+  console.log( event.keyCode );
+}
+
+function up_handler(event) {
+
+  switch (event.keyCode) {
+    case 87: //'w'
+      leftup = false;
+      break;
+    case 83: //'s'
+      leftdown = false;
+      break;
+    case 38: //up arrow
+      rightup = false;
+      break;
+    case 40: //down arrow
+      rightdown = false;
+      break;
+  }
+
+}
+
+                    
+//function mouse_handler(event)
+//{
+//  $("#rightPad").offset({top:event.clientY});
+//}
+
+//$("body").mousemove(mouse_handler);
+$("body").keydown(down_handler);
+$("body").keyup(up_handler);
+})(); //end self invoke
+</script>
+
+</html>
