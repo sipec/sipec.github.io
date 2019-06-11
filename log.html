@@ -28,7 +28,10 @@
 	<div class="revealedcontent">
 	<h3>15 Apr</h3>
 	<p>
-		Me and the design team met with Nate. The meeting was orignally just between Nate and the design team, but Elissa invited me last minute so that I could communicate back to the tech team what was discussed. We talked about project timelines and Nate's role in the project. Apparently Nate's own team at the Center for Sustainability has been designing this app for quite a while. I asked Nate for the github link; he's surprised we haven't gotten it yet. After the meeting I find the <a href="https://github.com/jonnylin13/taste-the-waste">link to Jonny's repo</a> and share with the team.
+		Me and the design team met with Nate. The meeting was orignally just between Nate and the design team, but Elissa invited me last minute so that I could communicate back to the tech team what was discussed. We talked about project timelines and Nate's role in the project. Apparently Nate's own team at the Center for Sustainability has been designing this app for quite a while. I asked Nate for the github link; he's surprised we haven't gotten it yet. After the meeting I find the link to Jonny's repo and share with the team.
+	</p>
+	<p>
+		<strong>Edit:</strong> Jonny has since transfered ownership of the repository to <a href="https://github.com/SCU-Sustainability/taste-the-waste">SCU-Sustainaiblity.</a> Also as of 6/11/2019 his project notebook is no longer listed on his personal webpage.
 	</p>
 	<h3>18 Apr</h3>
 	<p>
@@ -36,7 +39,7 @@
 	</p>
 	<h3>19 Apr</h3>
 	<p>
-		I downloaded the code and the Flutter SDK, Following <a href="https://github.com/jonnylin13/taste-the-waste/wiki/Setup">Jonny's setup instructions.</a> We are still awaiting the access codes
+		I downloaded the code and the Flutter SDK, Following <a href="https://github.com/SCU-Sustainability/taste-the-waste/wiki/Setup">Jonny's setup instructions.</a> We are still awaiting the access codes
 	</p>
 	</div>
 
@@ -64,7 +67,7 @@
 		During class, finished getting the UI to dislay. Got past the login screen by changing <code>_is_logged_in()</code> to always return true. Updated the <a href="https://docs.google.com/spreadsheets/d/1XqJAMltySMIff326SmyOpSn7QbAYWZ26hbyieuDp6B0/edit?usp=sharing">GANTT chart</a> so it has dates and tasks.
 	</p>
 	<p>
-		<strong>EDIT:</strong> It is not up to date. If you're us, check the team drive, the issues are in a google doc unless I moved them to the github. If you're Dr. JAK maybe you should tell us off for trying to use a spreadsheet for the GANTT chart instead of some dedicated GANTT software that isn't terrible.
+		<strong>EDIT:</strong> It is not up to date. If you're us, check the team drive, the issues are in a google doc. If you're Dr. JAK maybe you should tell us off for trying to use a spreadsheet for the GANTT chart instead of some dedicated GANTT software that isn't terrible.
 	</p>
 
 	<h3>2 May</h3>
@@ -163,8 +166,17 @@
 
 	<h3>4 June</h3>
 	<p>
-		Finished setting up a Heroku instance of our server, the same way Jonny did. Now we can use the app without running a local server first. In theory. Unfortuantely, the server doesn't seem to serve posts (though it does send notifications correctly to android phones.) For the demo, we are probably going to keep using the local server on my computer again.
+		Finished setting up a Heroku instance of our server using <a href='https://github.com/SCU-Sustainability/taste-the-waste/wiki/Deployment'>Jonny's instructions</a>. Now we can use the app without running a local server first. In theory. Unfortuantely, the server doesn't seem to serve posts (though it does send notifications correctly to android phones.) For the demo, we used the local server on my computer again.
 	</p>
+	<p>
+		<strong>Edit:</strong> If you're next year's team reading this, I did <code>git subtree push --prefix master heroku</code> in command line to push stuff in the <code>server/</code> directory into the "Heroku" branch, and then on Heroku I connected it to the SCU-Sustainability github and selected the Heroku branch. Or, you could just click the link above.
+	</p>
+
+	<h3>5 June</h3>
+	<p>
+		Manually added environment variables to Heroku on the settings page. Removed .env file from the Heroku branch, then changed history so that the file isn't publicly available. I did this because the .env file contains sensitive login info and API keys which should only be available to the people in the project.
+	</p>
+
 	</div>
 		
 	<script>
