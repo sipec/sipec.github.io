@@ -54,7 +54,7 @@ p
   width: 100%;
 }
 
-.linkbox {
+nav {
   position: absolute;
   right: 30px;
   background-color: #d7bff1;
@@ -65,12 +65,12 @@ p
   width: 170px;
 }
 
-.linkbox ul {
+nav ul {
   list-style: none;
   padding-left: 0;
 }
 
-.linkbox a {
+nav a {
   padding: 0px;
   border-radius: 0px;
   text-decoration: none;
