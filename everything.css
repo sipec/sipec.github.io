@@ -3,6 +3,12 @@
   src: url(https://fonts.googleapis.com/css?family=Amaranth);
 }
 
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body
 {
 	font-family: Amaranth, Helvetica, sans-serif;
@@ -18,7 +24,7 @@ a:hover
 
 p
 {
-	width:700px;
+	max-width: 700px;
 }
 
 .collapsible {
@@ -30,7 +36,7 @@ p
   border: 2px solid white;
   border-radius: 8px;
   margin-top: 4px;
-  text-align: left;
+  text-align: center;
   outline: none;
   font-size: 15px;
 }
@@ -47,7 +53,7 @@ p
   overflow:hidden;
   transition: max-height 0.4s ease-out;
   background-color: #ccaae2;
-  width: 684px; /* 720 - 18 - 18 = 684 [TODO: fix the jank] */
+  max-width: 720px;
 }
 
 .revealedcontent > p {
@@ -58,20 +64,40 @@ nav {
   position: absolute;
   right: 30px;
   background-color: #d7bff1;
-  padding-left: 18px;
-  padding-bottom: 18px;
+  padding: 18px;
   border: 2px solid white;
   border-radius: 8px;
-  width: 170px;
+}
+
+nav h3:first-child {
+  margin-top: 0;
+}
+
+nav h3 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 nav ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
+  margin: 0;
 }
 
 nav a {
   padding: 0px;
   border-radius: 0px;
   text-decoration: none;
+}
+
+#ee_shots {
+  display: flex;
+  flex-direction: row;
+  width: 20%
+}
+
+#ee_shots > img {
+  float: right;
+  width: 200;
+  padding: 2%;
 }
