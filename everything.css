@@ -3,10 +3,18 @@
   src: url(https://fonts.googleapis.com/css?family=Amaranth);
 }
 
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.clearfix::after {
+  content: " ";
+  display: block;
+  clear: both;
 }
 
 body
@@ -61,12 +69,12 @@ p
 }
 
 nav {
-  position: absolute;
-  right: 30px;
+  float: right;
   background-color: #d7bff1;
   padding: 18px;
   border: 2px solid white;
   border-radius: 8px;
+  margin: 0 0 10px 10px;
 }
 
 nav h3:first-child {
@@ -93,11 +101,14 @@ nav a {
 #ee_shots {
   display: flex;
   flex-direction: row;
-  width: 20%
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
 #ee_shots > img {
-  float: right;
-  width: 200;
-  padding: 2%;
+  display: flex;
+  max-width: 300px;
+  margin: 0 10px 10px 0;
+  padding: 0;
 }
