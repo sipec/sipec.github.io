@@ -2,6 +2,7 @@
 <head>
 	<title>Team Log</title>
 	<link rel="stylesheet" type="text/css" href="everything.css"></link>
+	<script src='projects/ee/unhiding.js'></script>
 </head>
 <body>
 	<nav>
@@ -161,22 +162,5 @@
 	</p>
 	</div>
 
-
-	<script>
-	var coll = document.getElementsByClassName("collapsible");
-	var i;
-
-	for (i = 0; i < coll.length; i++) {
-	  coll[i].addEventListener("click", function() {
-	    this.classList.toggle("active");
-	    var content = this.nextElementSibling;
-	    if (content.style.maxHeight){
-	      content.style.maxHeight = null;
-	    } else {
-	      content.style.maxHeight = content.scrollHeight + "px";
-	    } 
-	  });
-	}
-</script>
 </body>
 </html>
