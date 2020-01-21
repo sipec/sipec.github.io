@@ -6,18 +6,12 @@ html {
   box-sizing: inherit;
 }
 
-.clearfix::after {
-  content: " ";
-  display: block;
-  clear: both;
-}
-
 body
 {
 	font-family: Open Sans, Helvetica, sans-serif;
 	background-color: #e8c7e2;
-  padding:30px;
-  word-wrap: break-word;
+  	padding:30px;
+ 	word-wrap: break-word;
 }
 
 a:hover
@@ -25,17 +19,13 @@ a:hover
   background-color: white;
 }
 
-p
-{
-	max-width: 700px;
-}
 
 .collapsible {
   background-color: #4b1b6b;
   color: white;
   cursor: pointer;
   padding: 18px;
-  width: 720px;
+  width: 100%;
   border: 2px solid white;
   border-radius: 8px;
   margin-top: 4px;
@@ -56,14 +46,11 @@ p
   overflow:hidden;
   transition: max-height 0.4s ease-out;
   background-color: #ccaae2;
-  max-width: 720px;
-}
-
-.revealedcontent > p {
   width: 100%;
 }
 
 nav {
+  display: inline-block;
   float: right;
   background-color: #d7bff1;
   padding: 18px;
@@ -77,8 +64,7 @@ nav h3:first-child {
 }
 
 nav h3 {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 8px 0;
 }
 
 nav ul {
