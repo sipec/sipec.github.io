@@ -19,6 +19,10 @@ a:hover
   background-color: white;
 }
 
+main
+{
+	max-width: 720px;
+}
 
 .collapsible {
   background-color: #4b1b6b;
