@@ -16,29 +16,3 @@ body
 {
 	background: white;
 }
-
-.door
-{	
-	text-align: center;
-	font-size: 300%;
-	width: 100px;
-	height: 100px;
-	background: brown;
-}
-
-#guy
-{
-	font-family:verdana;
-	font-size:200%;
-	position: absolute;
-	height: 50px;
-	width: 50px;
-	color: white;
-	background: red;
-}
-
-#selfie
-{
-	width: 100px;
-	height: 100px;
-}
