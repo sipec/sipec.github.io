@@ -1,0 +1,27 @@
+﻿#mainWindow {
+	padding: 0;
+	margin: auto;
+	display: block;
+	width: 600px;
+	height: 600px;
+	background: grey;
+	border-radius: 10px;
+}
+
+#gameWin
+{
+	display: inline-block;
+	height: 70%;
+	background: black;
+}
+
+body
+{
+	background: #abab77;
+}
+
+p
+{
+	font-family: Arial;
+	text-align: center;
+}
