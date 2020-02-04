@@ -1,0 +1,55 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body
+{
+	font-family: Open Sans, Helvetica, sans-serif;
+	background-color: #e8c7e2;
+  	padding:30px;
+ 	word-wrap: break-word;
+}
+
+a:hover
+{
+  background-color: rgba(255, 255, 255, 0.40);
+}
+
+main
+{
+	max-width: 720px;
+}
+
+nav {
+  display: inline-block;
+  float: right;
+  background-color: #d7bff1;
+  padding: 18px;
+  border: 4px dotted white;
+  border-radius: 8px;
+  margin: 0 0 10px 10px;
+}
+
+nav h3:first-child {
+  margin-top: 0;
+}
+
+nav h3 {
+  margin: 8px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav a {
+  padding: 0px;
+  border-radius: 0px;
+  text-decoration: none;
+}
