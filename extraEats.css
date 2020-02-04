@@ -25,27 +25,34 @@ main
 }
 
 .collapsible {
-  background-color: #4b1b6b;
+  background-color: #672693;
   color: white;
   cursor: pointer;
   padding: 18px;
   width: 100%;
-  border: 2px solid white;
+  border: none;
   border-radius: 8px;
-  margin-top: 4px;
+  margin-top: 8px;
   text-align: center;
   outline: none;
   font-size: 15px;
 }
 
-.active, .collapsible:hover {
-  background-color: #672693;
-  border: 2px solid black;
+.collapsible:nth-of-type(2n) {
+  background-color: #a55dd5;
+}
+
+.collapsible:hover {
+  opacity: 0.75;
+}
+
+.collapsible.active {
+  border-radius: 8px 8px 0 0;
 }
 
 .revealedcontent {
   padding: 0 18px;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
   max-height: 0;
   overflow:hidden;
   transition: max-height 0.4s ease-out;
