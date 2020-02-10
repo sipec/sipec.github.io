@@ -7,11 +7,9 @@
     <canvas id="canvas"></canvas>
 </body>
 <style>
-    canvas {
-        margin: auto;
-    }
     body {
-        overflow: hidden;
+        margin: 0;
+        height: 100vh;
     }
 </style>
 <script>
@@ -49,8 +47,16 @@ const booms = {
 }
 
 function randomPowerUp() {
-    let keys = Object.keys(booms);
-    return booms[keys[randTo(keys.length)]];
+    let vals = Object.values(booms);
+    return vals[randTo(vals.length)];
+}
+
+//booms but without diamond
+let noDiamondBooms = Object.assign({}, booms);
+delete noDiamondBooms.DIAMOND;
+function randomPowerUpNoDiamond() {
+    let vals = Object.values(noDiamondBooms);
+    return vals[randTo(vals.length)];
 }
 
 canvas.addEventListener("mousemove", function (e) {
@@ -321,7 +327,7 @@ PowerUp.prototype.update = function () {
                     [that.x, that.y + delta],
                     [that.x, that.y - delta]
                 ].map((vec) => {
-                    powerups[powerups.length] = new PowerUp(vec[0], vec[1], randomPowerUp());
+                    powerups[powerups.length] = new PowerUp(vec[0], vec[1], randomPowerUpNoDiamond());
                 })
             }
             deadPowerups.push(that);
