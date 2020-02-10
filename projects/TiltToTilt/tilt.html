@@ -366,12 +366,14 @@ PowerUp.prototype.update = function () {
                 break;
 
             case booms.CIRCLE:
+                let outer = 7.7 * this.radius;
+                let inner = outer - 10;
                 for (let i = 0; i < enemys.length; i++) //check if the enemys hits the ring of 7-8, if its inside it will live!
                 {
                     if (Math.sqrt((this.y - enemys[i].getY()) * (this.y - enemys[i].getY()) + (this.x - enemys[i].getX()) *
-                     (this.x - enemys[i].getX())) < this.radius * 8 + enemys[i].getRadius() &&
+                     (this.x - enemys[i].getX())) < outer + enemys[i].getRadius() &&
                      Math.sqrt((this.y - enemys[i].getY()) * (this.y - enemys[i].getY()) + (this.x - enemys[i].getX()) *
-                        (this.x - enemys[i].getX())) > this.radius * 7 - enemys[i].getRadius())
+                        (this.x - enemys[i].getX())) > inner - enemys[i].getRadius())
                     {
                         deadEnemies.push(enemys[i]);
                     }
@@ -441,15 +443,16 @@ PowerUp.prototype.render = function () {
                 ctx.fillRect(x - rad * size/2, y - rad, rad * size, 2 * rad);
                 break;
             case booms.CIRCLE: //draw a ring
-                let inner = 7, outer = 7.7; //inner vs outer ratios
+                let outer = 7.7 * rad;
+                let inner = outer - 10;
                 ctx.beginPath();
-                ctx.arc(x, y, rad * outer, 0, Math.PI * 2);
+                ctx.arc(x, y, outer, 0, Math.PI * 2);
                 ctx.stroke();
-                ctx.lineTo(x + rad * inner, y);
+                ctx.lineTo(x + inner, y);
                 ctx.stroke();
-                ctx.arc(x, y, rad * inner, 0 , Math.PI * 2, true);
+                ctx.arc(x, y, inner, 0 , Math.PI * 2, true);
                 ctx.stroke();
-                ctx.lineTo(x + rad * outer, y);
+                ctx.lineTo(x + outer, y);
                 ctx.stroke();
                 ctx.closePath();
                 ctx.fill();
