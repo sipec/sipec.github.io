@@ -1,23 +1,23 @@
 ﻿#mainWindow {
-	padding: 0;
-	margin: auto;
-	display: block;
-	width: 600px;
-	height: 600px;
-	background: grey;
+	width: 500px;
+	height: 500px;
+	background: white;
+	border: 4px solid white;
 	border-radius: 10px;
-}
-
-#gameWin
-{
-	display: inline-block;
-	height: 70%;
-	background: black;
-}
+}	
 
 body
 {
-	background: #abab77;
+	height: 100vh;
+	min-height: 100vh;
+	margin: 0;
+	display: flex;
+	/* centering */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* https://cssgradient.io/ */
+	background: linear-gradient(90deg, rgba(230,30,255,1) 0%, rgba(255,0,0,1) 16%, rgba(253,141,39,1) 34%, rgba(252,247,69,1) 50%, rgba(50,205,50,1) 65%, rgba(23,172,255,1) 85%, rgba(0,255,255,1) 100%);
 }
 
 p
