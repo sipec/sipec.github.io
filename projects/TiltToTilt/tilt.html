@@ -252,10 +252,12 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.render = function () { // draw our circle with x and y being the center
+    ctx.strokeStyle = "black";
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.closePath();
+    ctx.stroke();
     ctx.fill();
 };
 
@@ -287,9 +289,12 @@ var PowerUp = function(x, y, type) {
     this.y = y;
     this.type = type;
     this.radius = 10;
-    this.color = "rgb(0,0,0)";
     this.awake = false;
     this.active = false;
+    let grad = ctx.createRadialGradient(x, y, 1, x, y, this.radius);
+    grad.addColorStop(0, "white");
+    grad.addColorStop(1, "black");
+    this.color = grad;
     console.log("new powerup");
 }
 
@@ -420,47 +425,50 @@ PowerUp.prototype.render = function () {
         ctx.stroke();
         ctx.closePath();
         ctx.fill();
-    } else switch(this.type) {
-        case booms.BIG_DISK:
-        case booms.DISK:  // draw our circle with x and y being the center, radius ratio of 5.
-            ctx.beginPath();
-            ctx.arc(x, y, rad * 5, 0, Math.PI * 2);
-            ctx.closePath();
-            ctx.fill();
-            break;
-        case booms.PLUS: //draw a + with height / width radius * 40 NERF!
-            let size = 40;
-            ctx.fillRect(x - rad, y - rad * size/2, rad * 2, rad * size);
-            ctx.fillRect(x - rad * size/2, y - rad, rad * size, 2 * rad);
-            break;
-        case booms.CIRCLE: //draw a ring
-            let inner = 7, outer = 7.7; //inner vs outer ratios
-            ctx.beginPath();
-            ctx.arc(x, y, rad * outer, 0, Math.PI * 2);
-            ctx.stroke();
-            ctx.lineTo(x + rad * inner, y);
-            ctx.stroke();
-            ctx.arc(x, y, rad * inner, 0 , Math.PI * 2, true);
-            ctx.stroke();
-            ctx.lineTo(x + rad * outer, y);
-            ctx.stroke();
-            ctx.closePath();
-            ctx.fill();
-            break;
-        case booms.DIAMOND: // diamond
-            ctx.beginPath()
-            ctx.moveTo(x - rad * 5, y); 
-            ctx.lineTo(x , y - rad * 5);
-            ctx.stroke();
-            ctx.lineTo(x + rad * 5, y);
-            ctx.stroke();
-            ctx.lineTo(x , y + rad * 5);
-            ctx.stroke();
-            ctx.lineTo(x - rad * 5, y);
-            ctx.stroke();
-            ctx.closePath();
-            ctx.fill();
-          break;
+    } else {
+        ctx.fillStyle = "black";
+        switch(this.type) {
+            case booms.BIG_DISK:
+            case booms.DISK:  // draw our circle with x and y being the center, radius ratio of 5.
+                ctx.beginPath();
+                ctx.arc(x, y, rad * 5, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+                break;
+            case booms.PLUS: //draw a + with height / width radius * 40 NERF!
+                let size = 40;
+                ctx.fillRect(x - rad, y - rad * size/2, rad * 2, rad * size);
+                ctx.fillRect(x - rad * size/2, y - rad, rad * size, 2 * rad);
+                break;
+            case booms.CIRCLE: //draw a ring
+                let inner = 7, outer = 7.7; //inner vs outer ratios
+                ctx.beginPath();
+                ctx.arc(x, y, rad * outer, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.lineTo(x + rad * inner, y);
+                ctx.stroke();
+                ctx.arc(x, y, rad * inner, 0 , Math.PI * 2, true);
+                ctx.stroke();
+                ctx.lineTo(x + rad * outer, y);
+                ctx.stroke();
+                ctx.closePath();
+                ctx.fill();
+                break;
+            case booms.DIAMOND: // diamond
+                ctx.beginPath()
+                ctx.moveTo(x - rad * 5, y); 
+                ctx.lineTo(x , y - rad * 5);
+                ctx.stroke();
+                ctx.lineTo(x + rad * 5, y);
+                ctx.stroke();
+                ctx.lineTo(x , y + rad * 5);
+                ctx.stroke();
+                ctx.lineTo(x - rad * 5, y);
+                ctx.stroke();
+                ctx.closePath();
+                ctx.fill();
+                break;
+        }
     }
 };
 
