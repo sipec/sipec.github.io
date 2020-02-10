@@ -538,8 +538,8 @@ function render() {
     players[0].render();
 
     ctx.font = "30px Comic Sans MS";
-    ctx.fillText("Score: " + enemysKilled, width - 200 , 100);
-    ctx.fillText("Time: " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 200, 150);
+    ctx.fillText("🔴 " + enemysKilled, width - 200 , 100);
+    ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 200, 150);
 
     while (deadPlayers.length > 0)
     {
