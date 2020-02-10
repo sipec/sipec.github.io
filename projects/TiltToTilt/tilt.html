@@ -428,7 +428,12 @@ PowerUp.prototype.render = function () {
         ctx.closePath();
         ctx.fill();
     } else {
-        ctx.fillStyle = "black";
+        let gradDist = rad * 10
+        let grad = ctx.createLinearGradient(x - gradDist, y - gradDist, x + gradDist, y + gradDist);
+        grad.addColorStop(0, "red");
+        grad.addColorStop(1, "yellow");
+        ctx.fillStyle = grad;
+        ctx.strokeStyle = "white";
         switch(this.type) {
             case booms.BIG_DISK:
             case booms.DISK:  // draw our circle with x and y being the center, radius ratio of 5.
