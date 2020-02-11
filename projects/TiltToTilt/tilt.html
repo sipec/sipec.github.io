@@ -7,9 +7,9 @@
     <canvas id="canvas"></canvas>
 </body>
 <style>
-    body {
+    body, html {
         margin: 0;
-        height: 100vh;
+        overflow: hidden;
     }
 </style>
 <script>
@@ -22,7 +22,7 @@ var canvas = document.getElementById("canvas"),
     mouseY = height/2;
 
 canvas.width = width;
-canvas.height = height; 
+canvas.height = height;
 
 var players = [];
 var enemys = [];
@@ -31,11 +31,35 @@ var enemySpawner;
 var powerupSpawner;
 var timeTracker;
 var gameOn = true;
+var paused = false;
 var deadPlayers = [];
 var deadEnemies = [];
 var deadPowerups = [];
 var enemysKilled = 0;
 var time = 0;
+
+function pause(state = true) {
+    paused = state;
+    // if (paused) {
+    //     // gameOn = false;
+    // } else {
+    //     // render();
+    // }
+    //TODO show pause screen
+}
+
+
+document.addEventListener("keyup", evt => {
+    if (evt.code === "KeyP") {
+        pause()
+    }
+    //temp
+    if (evt.code === "KeyL") {
+        pause(false)
+    }
+})
+
+document.addEventListener("blur", evt => pause())
 
 //enum
 const booms = {
@@ -127,7 +151,6 @@ Player.prototype.render = function () {
     ctx.fill();
 };
 
-//TODO: why does changing these to anonymous functions stop collisions from working?
 Player.prototype.getX = function () { return this.x };
 Player.prototype.getY = function () { return this.y };
 Player.prototype.getRadius = function () { return this.radius };
@@ -507,61 +530,69 @@ function removePowerup(dead) {
 }
 
 function world() {
-    var player1 = new Player(width / 2, height / 2, 10, "rgb(0,0,0)", 1);
-    players[0] = player1;
+    players[0] = new Player(width / 2, height / 2, 10, "rgb(0,0,0)", 1);
 
     enemySpawner = setInterval( function()
     {
-        enemys[enemys.length] = new Enemy(randTo(2) * canvas.width,randTo(2) * canvas.height,10, "rgb(" + randTo(256) + "," + randTo(256) + "," + randTo(256) + ")", 2.5, randTo(10));
+        if (! paused) {
+            enemys[enemys.length] = new Enemy(randTo(2) * canvas.width,randTo(2) * canvas.height,10, "rgb(" + randTo(256) + "," + randTo(256) + "," + randTo(256) + ")", 2.5, randTo(10));
+        }
     }, 250);
 
     powerupSpawner = setInterval( function()
     {
-        powerups[powerups.length] = new PowerUp(randTo(canvas.width) + 1, randTo(canvas.height) + 1, randomPowerUp());        
+        if (! paused) {
+            powerups[powerups.length] = new PowerUp(randTo(canvas.width) + 1, randTo(canvas.height) + 1, randomPowerUp());        
+        }
     }, 2000);
 
     timeTracker = setInterval( function()
     {
-        time++;
+        if (! paused) {
+            time++;
+        }
     }, 1000);
 }
 
+ctx.font = "30px Comic Sans MS";
 function render() {
     ctx.clearRect(0, 0, width, height); //clear background
-
-    enemys.map( (en) => {
-        en.update();
-        en.render();
-    });
-
-    powerups.map ((pw) => {
-        pw.update();
-        pw.render();
-    });
-
-    players[0].update(mouseX, mouseY);
-    players[0].render();
-
-    ctx.font = "30px Comic Sans MS";
-    ctx.fillText("🔴 " + enemysKilled, width - 200 , 100);
-    ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 200, 150);
-
-    while (deadPlayers.length > 0)
+    if (! paused)
     {
-        removePlayer(deadPlayers.pop());
-        console.log("player down!");
-    }
+        enemys.map( (en) => {
+            en.update();
+            en.render();
+        });
 
-    while (deadEnemies.length > 0)
-    {
-        removeEnemy(deadEnemies.pop());
-        console.log("enemy down!");
-    }
+        powerups.map ((pw) => {
+            pw.update();
+            pw.render();
+        });
 
-    while (deadPowerups.length > 0)
-    {
-        removePowerup(deadPowerups.pop());
-        console.log("powerup down!");
+        players[0].update(mouseX, mouseY);
+        players[0].render();
+
+        ctx.fillText("🔴 " + enemysKilled, width - 200 , 100);
+        ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 200, 150);
+        ctx.fillText("Made by Austin Cheng and Sinclair Chen", 10, height - 10);
+
+        while (deadPlayers.length > 0)
+        {
+            removePlayer(deadPlayers.pop());
+            console.log("player down!");
+        }
+
+        while (deadEnemies.length > 0)
+        {
+            removeEnemy(deadEnemies.pop());
+            console.log("enemy down!");
+        }
+
+        while (deadPowerups.length > 0)
+        {
+            removePowerup(deadPowerups.pop());
+            console.log("powerup down!");
+        }
     }
 
     if (gameOn)
