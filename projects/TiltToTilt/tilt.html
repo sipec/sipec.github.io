@@ -457,6 +457,7 @@ PowerUp.prototype.update = function () {
 
 PowerUp.prototype.render = function () {
     ctx.fillStyle  = this.color;
+    ctx.strokeStyle = this.color;
     let x = this.getX();
     let y = this.getY();
     let rad = this.getRadius();
@@ -480,7 +481,7 @@ PowerUp.prototype.render = function () {
         grad.addColorStop(0, "red");
         grad.addColorStop(1, "yellow");
         ctx.fillStyle = grad;
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = grad;
         switch(this.type) {
             case booms.BIG_DISK:
             case booms.DISK:  // draw our circle with x and y being the center, radius ratio of 5.
@@ -587,21 +588,21 @@ function render() {
     ctx.clearRect(0, 0, width, height); //clear background
     if (! paused)
     {
-        enemys.map( (en) => {
-            en.update();
-            en.render();
-        });
+        ctx.fillText("🔴 " + enemysKilled, width - 150 , 50);
+        ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 150, 100);
 
         powerups.map ((pw) => {
             pw.update();
             pw.render();
         });
 
+        enemys.map( (en) => {
+            en.update();
+            en.render();
+        });
+
         players[0].update(mouseX, mouseY);
         players[0].render();
-
-        ctx.fillText("🔴 " + enemysKilled, width - 150 , 50);
-        ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 150, 100);
 
         while (deadPlayers.length > 0)
         {
