@@ -2,14 +2,35 @@
 <html>
 <head>
     <title>Tilt</title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <div id="overlay" class="hidden">
+        <h1>Paused</h1>
+        <button type=button id="game" onclick="pause(false)">Continue</button>
+        <button type=button id="home" onclick="window.location.href='sipec.github.io'">Go Home</button>
+    </div>
 </body>
 <style>
     body, html {
         margin: 0;
         overflow: hidden;
+        position: relative;
+    }
+    #overlay {
+        width: 25%;
+        height: 30%;
+        text-align: center;
+        font-family: "Indie Flower", Helvetica, Sans-Serif;
+        user-select: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .hidden {
+        display: none;
     }
 </style>
 <script>
@@ -40,6 +61,11 @@ var time = 0;
 
 function pause(state = true) {
     paused = state;
+    if (paused) {
+        document.getElementById("overlay").classList.remove("hidden")
+    } else {
+        document.getElementById("overlay").classList.add("hidden")
+    }
     // if (paused) {
     //     // gameOn = false;
     // } else {
@@ -53,13 +79,10 @@ document.addEventListener("keyup", evt => {
     if (evt.code === "KeyP") {
         pause()
     }
-    //temp
-    if (evt.code === "KeyL") {
-        pause(false)
-    }
 })
 
 document.addEventListener("blur", evt => pause())
+// document.getElementById("overlay").addEventListener("")
 
 //enum
 const booms = {
@@ -554,9 +577,11 @@ function world() {
     }, 1000);
 }
 
-ctx.font = "30px Comic Sans MS";
+ctx.font = "40px Indie Flower";
 function render() {
-    ctx.clearRect(0, 0, width, height); //clear background
+    ctx.globalAlpha = 0.2;
+    ctx.fillRect(0, 0, width, height);
+    ctx.globalAlpha = 1.0;
     if (! paused)
     {
         enemys.map( (en) => {
@@ -574,7 +599,6 @@ function render() {
 
         ctx.fillText("🔴 " + enemysKilled, width - 200 , 100);
         ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 200, 150);
-        ctx.fillText("Made by Austin Cheng and Sinclair Chen", 10, height - 10);
 
         while (deadPlayers.length > 0)
         {
