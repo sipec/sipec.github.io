@@ -21,7 +21,13 @@ a:hover
 
 main
 {
-	max-width: 720px;
+	max-width: 780px;
+}
+
+img#me {
+  width: 300px;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
 nav {
