@@ -157,7 +157,7 @@ Player.prototype.update = function (x, y) {
 };
 
 Player.prototype.render = function () {
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = this.immune ? "gray" : this.color;
     // draw our triangle with x and y being the center, and points twards mouse
     let dx = this.targetX - this.x
     let dy = this.targetY - this.y
@@ -182,6 +182,7 @@ Player.prototype.render = function () {
     ctx.closePath();
     ctx.stroke();
     ctx.strokeStyle = "black";
+    
 
 };
 
@@ -189,7 +190,7 @@ Player.prototype.getX = function () { return this.x };
 Player.prototype.getY = function () { return this.y };
 Player.prototype.getRadius = function () { return this.radius };
 
-Player.prototype.immune = function (time) {
+Player.prototype.setImmune = function (time) {
     this.immune = true;
     var theplayer = this;
     var hurt = setTimeout(function () {
@@ -204,8 +205,9 @@ Player.prototype.takeHit = function (dmg) {
         console.log("ouch! hp:" + this.hp)
         if ( this.hp > 0 )
         {
-          this.immune(dmg * 2);
+          this.setImmune(dmg * 2);
         }
+        // TODO make a boom
     }
     if (this.hp <= 0)
     {
@@ -300,8 +302,9 @@ Enemy.prototype.update = function () {
 
     for (let i = 0; i < players.length; i++)
     {
-        if ((players[i].getRadius() + this.radius) * (players[i].getRadius() + this.radius) >
-        (players[i].getX() - this.x) * (players[i].getX() - this.x) + (players[i].getY() - this.y) * (players[i].getY() - this.y))
+        // if player radius + this radius > distance from player to this
+        if ((players[i].getRadius() + this.radius) ** 2 > 
+            (players[i].getX() - this.x) ** 2 + (players[i].getY() - this.y) ** 2)
         {
           players[i].takeHit(1);
         }
@@ -389,7 +392,7 @@ PowerUp.prototype.update = function () {
                     [that.x, that.y + delta],
                     [that.x, that.y - delta]
                 ].map((vec) => {
-                    powerups[powerups.length] = new PowerUp(vec[0], vec[1], randomPowerUpNoDiamond());
+                    powerups.push(new PowerUp(vec[0], vec[1], randomPowerUpNoDiamond()));
                 })
             }
             deadPowerups.push(that);
@@ -569,7 +572,7 @@ function removePowerup(dead) {
 }
 
 function world() {
-    players[0] = new Player(width / 2, height / 2, 4, "rgb(0,0,0)", 1);
+    players[0] = new Player(width / 2, height / 2, 4, "rgb(0,0,0)", 3);
 
     enemySpawner = setInterval( function()
     {
@@ -581,7 +584,7 @@ function world() {
     powerupSpawner = setInterval( function()
     {
         if (! paused) {
-            powerups[powerups.length] = new PowerUp(randTo(canvas.width) + 1, randTo(canvas.height) + 1, randomPowerUp());        
+            powerups.push(new PowerUp(randTo(canvas.width) + 1, randTo(canvas.height) + 1, randomPowerUp()));        
         }
     }, 2000);
 
@@ -600,6 +603,7 @@ function render() {
     {
         ctx.fillText("🔴 " + enemysKilled, width - 150 , 50);
         ctx.fillText("🕓 " + Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2), width - 150, 100);
+        ctx.fillText("💖 " + players[0].hp, width - 150, 150);
 
         powerups.map ((pw) => {
             pw.update();
