@@ -8,10 +8,10 @@ html {
 
 body
 {
-	font-family: Open Sans, Helvetica, sans-serif;
-	background-color: #e8c7e2;
-  	padding:30px;
- 	word-wrap: break-word;
+  font-family: Open Sans, Helvetica, sans-serif;
+  background-color: #e8c7e2;
+  padding:30px;
+  word-wrap: break-word;
 }
 
 a:hover
@@ -21,7 +21,7 @@ a:hover
 
 main
 {
-	max-width: 720px;
+  max-width: 720px;
 }
 
 .collapsible {
