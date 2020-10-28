@@ -3,6 +3,7 @@
 <head>
     <title>Tilt</title>
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <canvas id="canvas"></canvas>
@@ -20,8 +21,6 @@
         position: relative;
     }
     #overlay {
-/*        width: 25%;
-        height: 30%;*/
         text-align: center;
         font-family: "Josefin Sans", Helvetica, Sans-Serif;
         text-shadow: 1px 1px white;
@@ -48,8 +47,8 @@ var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
     width = window.innerWidth,
     height = window.innerHeight,
-    mouseX = width/2,
-    mouseY = height/2;
+    mouseX = 0,
+    mouseY = 0;
 
 canvas.width = width;
 canvas.height = height;
@@ -67,6 +66,16 @@ var deadEnemies = [];
 var deadPowerups = [];
 var enemysKilled = 0;
 var time = 0;
+
+//device acceleration (for mobile/tablet)
+var tiltX = undefined;
+var tiltY = undefined;
+
+if (window.DeviceOrientationEvent) {
+    console.log("supports orientation");
+} else {
+    console.log("doesn't support orientation");
+}
 
 function pause(state = true) {
     paused = state;
@@ -112,11 +121,17 @@ canvas.addEventListener("mousemove", function (e) {
    mouseY = e.pageY;
 });
 
+window.addEventListener("deviceorientation", (event) => {
+    tiltX = event.beta;
+    tiltY = event.gamma;
+});
 
 //player class
 var Player = function (x, y, radius, color, hp) {
     this.x = x || 0;
     this.y = y || 0;
+    this.targetX = 0; // used to point character where its going, and for enemy intercept
+    this.targetY = 0;
     this.radius = radius || 10;
     this.drawRadius = this.radius; // drawRadius is also the maxRadius
     this.minRadius = 0.8;
@@ -131,24 +146,39 @@ var Player = function (x, y, radius, color, hp) {
 }
 
 Player.prototype.update = function (x, y) {
-    // save target x, y so that player can point in the direction its going
-    this.targetX = x;
-    this.targetY = y;
+    let tx, ty, sens, mag;
 
-    let tx = this.targetX - this.x,
+    if (tiltX && tiltY) { // mobile: use tilt
+        tx = Math.min(Math.max(-90, tiltX), 90) * Math.pi / 180;
+        ty = Math.min(Math.max(-90, tiltY), 90) * Math.pi / 180;
+        const absTiltAngle = Math.min(45, Math.abs(Math.atan2(Math.tan(tx) + Math.tan(ty), Math.sqrt(2))))
+        sens = absTiltAngle / (Math.pi/4)
+        
+        //normalize
+        mag = Math.sqrt(tx**2 + ty**2);
+        tx /= mag;
+        ty /= mag;
+
+        this.targetX = this.x + tx * sens * this.sensFalloff;
+        this.targetY = this.y + ty * sens * this.sensFalloff;
+    } else { // desktop: chase mouse
+        this.targetX = x;
+        this.targetY = y;
+        
+        tx = this.targetX - this.x;
         ty = this.targetY - this.y,
-        dist = Math.sqrt(tx * tx + ty * ty);
-    // normalize
-    tx /= dist;
-    ty /= dist;
+        mag = Math.sqrt(tx * tx + ty * ty);
+        // normalize
+        tx /= mag;
+        ty /= mag;
+        // Acceleration curve: linear increase up to max speed at sensFalloff pixels away. This prevents jitter.
+        sens = Math.min(1, mag / this.sensFalloff)
+    }
 
-    // Acceleration curve: linear increase up to max speed at sensFalloff pixels away. This prevents jitter.
-    const sens = Math.min(1, dist / this.sensFalloff)
-    const speed = sens * this.maxSpeed;
-    this.velX = tx * speed;
-    this.velY = ty * speed;
-
-    if (dist > 0) {
+    if (mag > 0) {
+        const speed = sens * this.maxSpeed;
+        this.velX = tx * speed;
+        this.velY = ty * speed;
         // add our velocities
         this.x += this.velX;
         this.y += this.velY;
@@ -250,8 +280,8 @@ Enemy.prototype.AI = function ( i ) {
             }
             break;
         case 7: // follow player
-            this.targetX = players[0].getX();
-            this.targetY = players[0].getY();
+            this.targetX = players[0].targetX;
+            this.targetY = players[0].targetY;
             break;
 
         case 8: //move to where the player's mouse is
