@@ -1,46 +1,96 @@
-<html>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
 <head>
-	<title>Sinclair Chen's Homepage</title>
-	<link rel="stylesheet" type="text/css" href="splash.css"></link>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <title>Sinclair Chen</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192"/>
+  <link rel="icon" type="image/png" href="/favicons/android-chrome-512x512.png" sizes="512x512"/>
 
-	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
-	<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16"/>
-	<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32"/>
-	<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192"/>
-	<link rel="icon" type="image/png" href="/favicons/android-chrome-512x512.png" sizes="512x512"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sinclair Chen's homepage">
+  <link rel="icon" href="favicon.png">
+  <style>
+    html {
+      background-color: #d0d2ec;
+    }
+    body {
+      max-width: 100vw;
+    }
+    img {
+      border-radius: 8px;
+    }
+    a > img:hover  {
+      box-shadow: 0 0 10px 5px white;
+      background-color: white;
+    }
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </style>
 </head>
-<body>
-	<nav>
-		<h3>Projects</h3>
-		<ul>
-			<li><a href="https://oneword.games">One Word</a></li>
-			<li><a href="projects/TiltToTilt/tilt.html">Tilt to Live</a></li>
-			<li><a href="project.html">Extra Eats</a> </li>
-			<li><a href="projects/Snek/snake.html">Snake</a></li>
-			<li><a href="projects/pong.html">Pong</a></li>
-			<li><a href="projects/Dungeon-Crawler/Doors.html">Unfinished Dungeon</a></li>
-		</ul>
-		<h3>Professional</h3>
-		<ul>
-			<li><a href="https://github.com/sipec">GitHub</a></li>
-			<li><a href="https://www.linkedin.com/in/clarity-chen">LinkedIn</a></li>
-			<li><a href="Resume Sinclair Chen.pdf">Resume</a></li>
-		</ul>
-		<h3>Social</h3>
-		<ul>
-			<li><a href='https://www.instagram.com/clairitable/'>Instagram</a></li>
-			<li><a href='https://twitter.com/SinclarityChen'>Twitter</a></li>
-			<li><a href="https://www.goodreads.com/user/show/85380190-sinclair-chen">Goodreads</a></li>
-		</ul>
-	</nav>
-	<main>
-	<h1>Hi! I'm Sinclair</h1>
-	<img id="me" src="me.jpg" width=200 alt="Sinclair's face"></img>
-	<p>I'm a software engineer currently looking for remote work opportunities.</p>
-	<p>This website is under construction. In the mean time, check out some of my projects in the side bar.</p>
-	</main>
+<body class="has-navbar-fixed-top" >
+  <div id="vue">
+    <nav class="navbar has-shadow is-fixed-top">
+      <span class="navbar-brand">
+        <a class="navbar-item" href="/">Sinclair Chen</a>
+        <a role="button" class="navbar-burger burger" :class= "{'is-active': navActive}" aria-label="menu"
+          data-target="navbuttons" @click="navActive = !navActive;">
+        <!-- burger/x icon: -->
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        </a>
+      </span>
+      <span class="navbar-menu" :class = "{'is-active': navActive}">
+        <div class="navbar-end">
+          <a class="navbar-item" href="https://www.github.com/sipec">Github</a>
+          <a class="navbar-item" href="https://www.linkedin.com/in/clarity-chen/">Linkedin</a>
+          <a class="navbar-item" href="https://www.notion.so/Sinclair-s-Resume-1f1c0c3e2a234655881de9d263586411">Resume</a>
+          <a class="navbar-item" href="https://twitter.com/SinclarityChen">Twitter</a>
+          <a class="navbar-item" href="https://www.goodreads.com/user/show/85380190-sinclair-chen">Goodreads</a>
+        </div>
+      </span>
+    </nav>
+    <div class="section">
+      <img id="me" src="me.jpg" height="200" width="200" alt="Sinclair's face">
+      <p class="is-size-4-tablet is-inline">
+        I am Sinclair, a former full-stack engineer at Everlaw. This site is under construction.
+      </p>
+    </div>
+    <div class="section">
+      <h1 class="title has-text-centered">My Projects</h1>
+      <div class="is-flex is-justify-content-space-around is-flex-wrap-wrap">
+        <figure class="mx-4 mb-4">
+          <a href="https://oneword.games">
+            <img src="/images/oneWordCloud.png" width='256'>
+          </a>
+          <figcaption class="has-text-centered is-size-5">One Word</figcaption>
+        </figure>
+        <figure class="mx-4 mb-4">
+          <a href="/projects/TiltToTilt/">
+            <img src="/images/tilt screenshot.png" width='256'>
+          </a>
+          <figcaption class="has-text-centered is-size-5">Tilt to Live</figcaption>
+        </figure>
+        <figure class="mx-4 mb-4">
+          <a href="/project.html">
+            <img src="/images/eelogo.png" width='256'>
+          </a>
+          <figcaption class="has-text-centered is-size-5">Extra Eats</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.0.1/dist/vue.global.min.js"></script>
+<script type="module">
+  Vue.createApp({
+    data: () => ({
+      navActive: false,
+    })
+  }).mount('#vue');
+</script>
 </html>
